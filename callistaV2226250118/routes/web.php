@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
 //use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +33,9 @@ Route::get('/dosen', function () {
 
 
 //pm wajib
-Route::get('/mahasiswa/{nama?}', function ($nama = 'karay') {
-   echo "<h2>Olaa epribadi, mi chiamo $nama</h2>";
-});
+// Route::get('/mahasiswa/{nama?}', function ($nama = 'karay') {
+//    echo "<h2>Olaa epribadi, mi chiamo $nama</h2>";
+// });
 
 //pm ga wajib
 // Route::get('/mahasiswa/{nama?}', function ($nama = 'karay') {
@@ -42,16 +43,16 @@ Route::get('/mahasiswa/{nama?}', function ($nama = 'karay') {
 // });
 
 //pm >1
-Route::get('/mahasiswa/{nama?}/(pekerjaan?', function ($nama = 'karay', $pekerjaan = "Pilot") {
-   echo "<h2>Olaa epribadi, mi chiamo $nama as a $pekerjaan</h2>";
-});
+// Route::get('/mahasiswa/{nama?}/(pekerjaan?', function ($nama = 'karay', $pekerjaan = "Pilot") {
+//    echo "<h2>Olaa epribadi, mi chiamo $nama as a $pekerjaan</h2>";
+// });
 
 //redirect
 Route::get('/hubungi', function () {
    echo "<h1>Contact us</h2>";
 });
 
-Route::redirect('contact', '/hubungi');
+// Route::redirect('contact', '/hubungi');
 
 Route::get('/halo', function () {
    echo "<a href='" . route('call') . "'>" . route('call') . "</a";
@@ -85,3 +86,10 @@ Route::get('prodi', [ProdiController::class, 'index']);
 Route::resource('/kurikulum', KurikulumController::class);
 
 Route::apiResource('/dosen', DosenController::class);
+
+Route::get('/mahasiswa/insert-elq', [MahasiswaController::class, 'insertElq']);
+Route::get('/mahasiswa/update-elq', [MahasiswaController::class, 'updateElq']);
+Route::get('/mahasiswa/delete-elq', [MahasiswaController::class, 'deleteElq']);
+Route::get('/mahasiswa/select-elq', [MahasiswaController::class, 'selectElq']);
+
+
