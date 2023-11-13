@@ -67,7 +67,12 @@ class ProdiController extends Controller{
         ]);
 
         Prodi::where('id', $prodi->id)->update($validateData);
-        $request->session()->flash('info',"Data Prodi $prodi->nama berhasil diubah");
+        session()->flash('info',"Data Prodi $prodi->nama berhasil diubah");
         return redirect()->route('prodi.index');
+    }
+
+    public function destroy(Prodi $prodi){
+        $prodi->delete();
+        return redirect()->route('prodi.index')->with('info',"Prodi $prodi->nama berhasil dihapus.");
     }
 }
