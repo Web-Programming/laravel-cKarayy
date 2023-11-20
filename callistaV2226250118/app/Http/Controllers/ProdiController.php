@@ -35,17 +35,25 @@ class ProdiController extends Controller{
 
         $validateData = $request->validate([
             "nama"=> "required|min:5|max:20",
+            'foto'=>'required|file|image|max:5000',
+           // 'file_lain'=>'required|file|mimes:pdf,png|max:5000',
         ]);
+        //ambil ekstensi file
+        $ext = $request->foto->getClientOriginalExtension();
+        $nama_file = "foto" . time() . "." . $ext;
+        $path = $request->foto->storeAs('public', $nama_file);
         // dump($validateData);
         // echo $validateData['nama'];
 
         $prodi =new Prodi(); //buat object podi
         $prodi->nama = $validateData['nama']; //simpan nilai input ke dalam property nama prodi
+        $prodi->foto = $nama_file;
         $prodi-> save(); //simpan ke dlm tabel produs
 
         // return "Data p[ $prodi->nama berhasil disimpan dalam database"; //tampilkan pesan berhasil
         $request->session()->flash('info',"Data prodi $prodi->nama berhasil disimpan dalam database");
         return redirect('prodi/create');
+
     }
 
     public function index(){
@@ -75,4 +83,6 @@ class ProdiController extends Controller{
         $prodi->delete();
         return redirect()->route('prodi.index')->with('info',"Prodi $prodi->nama berhasil dihapus.");
     }
+
+
 }
